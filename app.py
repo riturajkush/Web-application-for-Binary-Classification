@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import plot_confusion_matrix, plot_roc_curve, plot_precision_recall_curve
-from sklearn.metrics import precision_score, recall_score 
+from sklearn.metrics import precision_score, recall_score
 
 def main():
     st.title("Binary Classification Web App")
@@ -17,7 +17,7 @@ def main():
 
     @st.cache(persist=True)
     def load_data():
-        data  = pd.read_csv("/home/rhyme/Desktop/Project/mushrooms.csv")
+        data  = pd.read_csv("mushrooms.csv")
         label = LabelEncoder()
         for col in data.columns:
             data[col] = label.fit_transform(data[col])
@@ -57,8 +57,8 @@ def main():
     if  classifier == 'Support Vector Machine (SVM)':
         st.sidebar.subheader("Model Hyperparameters")
         C = st.sidebar.number_input("C (Regularization parameter)", 0.01, 10.0, step=0.01, key = 'C')
-        kernet = st.sidebar.radio("kernel", ("rbf", "linear"), key='kernel')
-        gamma = st.sidebar.radio("Gamma (Kernel Coefficient", ("scale", "auto"), key='gamma')
+        kernel = st.sidebar.radio("kernel", ("rbf", "linear"), key='kernel')
+        gamma = st.sidebar.radio("Gamma (Kernel Coefficient)", ("scale", "auto"), key='gamma')
 
         metrics = st.sidebar.multiselect("What metrics to plot ?", ('Confusion Matrix','ROC Curve', 'Precision-Recall Curve'))
 
@@ -77,7 +77,7 @@ def main():
         st.sidebar.subheader("Model Hyperparameters")
         C = st.sidebar.number_input("C (Regularization parameter)", 0.01, 10.0, step=0.01, key = 'C')
         max_iter = st.sidebar.slider("Maximum number of Iterations",100, 500, key='max_iter')
-    
+
 
         metrics = st.sidebar.multiselect("What metrics to plot ?", ('Confusion Matrix','ROC Curve', 'Precision-Recall Curve'))
 
@@ -97,7 +97,7 @@ def main():
         #C = st.sidebar.number_input("C (Regularization parameter)", 0.01, 10.0, step=0.01, key = 'C')
         #max_iter = st.sidebar.slider("Maximum number of Iterations",100, 500, key='max_iter')
         n_estimators = st.sidebar.number_input("The number of trees in the forest",100,5000, step=10, key='n_estimators')
-        max_depth = st.sidebar.number_input("The maximum depth of the tree", 1, 20, step=1, key='max_depth')    
+        max_depth = st.sidebar.number_input("The maximum depth of the tree", 1, 20, step=1, key='max_depth')
         bootstrap = st.sidebar.radio("Bootstrap samples when building trees",('True','False'), key='bootstrap')
         metrics = st.sidebar.multiselect("What metrics to plot ?", ('Confusion Matrix','ROC Curve', 'Precision-Recall Curve'))
 
@@ -125,13 +125,11 @@ def main():
 
 
 
-if st.sidebar.checkbox("Show raw data", False):
-    st.subheader("Mushroom Data Set (Classification)")
-    st.write(df)
+    if st.sidebar.checkbox("Show raw data", False):
+        st.subheader("Mushroom Data Set (Classification)")
+        st.write(df)
 
 
 
 if __name__ == '__main__':
     main()
-
-
