@@ -38,8 +38,8 @@ def main():
             st.pyplot()
 
         if 'ROC Curve' in metrics_list:
-            st.subheader("Confusion Matrix")
-            plot_confusion_matrix(model, x_test, y_test)
+            st.subheader("ROC Curve")
+            plot_roc_curve(model, x_test, y_test)
             st.pyplot()
 
         if 'Precision-Recall Curve' in metrics_list:
